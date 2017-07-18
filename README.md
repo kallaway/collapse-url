@@ -1,2 +1,1 @@
-# collapse-url
-URL Shortener Microservice
+# Backend Challenges boilerplate - package.json
