@@ -19,6 +19,10 @@ body {
 	margin-top: 60px;
 }
 
+h1 {
+  text-transform: none;
+}
+
 ol {
 	list-style-position: inside;
 }
