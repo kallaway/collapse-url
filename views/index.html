@@ -11,9 +11,27 @@
    <body>
       <div class="container">
          <h1>collapseURL</h1>
-         <h3>URL Shortener App - One of the Free Code Camp Backend Challenges</h3>
+         <h2>URL Shortener App - One of the Free Code Camp Backend Challenges</h2>
         
-        <p>Example usage</p>
+        <p>
+          Purpose: You can pass a URL you want to shorten as a parameter like this<br><br>
+          https://collapse-url.glitch.me/new/[your-link]<br><br>
+          You don't need the brackets around the link. You will then receive a shortened URL in the JSON response.
+        </p>
+        
+        <h3>Example usage</h3>
+        <p>
+          https://collapse-url.glitch.me/new/https://www.google.com<br>
+          https://collapse-url.glitch.me/new/http://www.example.com
+        </p>
+        <h3>Example output</h3>
+        <p>
+          { "original_url": http://www.example.com, "short_url": "https://collapse-url.glitch.me/8170"}
+        </p>
+        <h3>Usage</h3>
+        <p>
+          Visit https://collapse-url.glitch.me/8170 and you will be redirected to http://www.example.com
+        </p>
         
       </div>
    </body>

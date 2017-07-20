@@ -68,26 +68,54 @@ MongoClient.connect(process.env.MONGODB_URL, function(err, db) {
                 console.log(result);
                 
                 let newRecord = {
-                "shortURL": result,
-                "originalURL": submittedURL
+                  "shortURL": result,
+                  "originalURL": submittedURL
                 };
 
                 urlCollection.insert(newRecord);
-                res.json({ "isitok": "URL_IS_VALID"});
+                
+                res.json({ 
+                    "original_url": submittedURL,
+                    "short_url": "https://collapse-url.glitch.me/" + result
+                  });
               });
               
               
             } else {
-              res.json({ "error": "You've submitted an invalid URL."});
+              res.json({ "error": "You've submitted an invalid URL. Remember to include the HTTP:// or HTPS:// protocol in your link"});
             }
         })
 
     app.route('/:lookupURL')
         .get(function(req, res) {
+          let lookupURL = req.params.lookupURL;
+          
           console.log("LOOKUP /* RUNS: " + req.params.lookupURL);
 
-          res.sendFile(process.cwd() + '/views/index.html');
+          if (!lookupURL.length) {
+            res.sendFile(process.cwd() + '/views/index.html');
+          }
+      
+          urlCollection.findOne({ shortURL: Number(lookupURL) }, function(err, item) {
+            console.log("ITEM");
+            console.log(item);
+            
+            if (item === null) {
+              res.json({ "error": "There is no link associated with this shortlink" });
+            } else {
+              res.writeHead(301, { Location: item.originalURL });
+              res.end();
+            }
+            
+            
+            
+          });
         })
+    
+    app.route('')
+          .get(function(req, res) {
+            res.sendFile(process.cwd() + '/views/index.html');
+          })
 
     // Respond not found to all the wrong routes
     app.use(function(req, res, next){
